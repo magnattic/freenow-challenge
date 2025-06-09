@@ -1,40 +1,36 @@
-import { BackwardIcon, ForwardIcon } from '@freenow/wave';
-import { IconButton } from '@freenow/wave/experimental';
+import { Pagination as WavePagination, type PaginationProps as WavePaginationProps } from '@freenow/wave';
 
-interface PaginationProps {
-	readonly currentPage: number;
-	readonly totalPages: number;
-	readonly onPageChange: (page: number) => void;
+type PaginationProps = WavePaginationProps & {
+	onPageChange: (page: number) => void;
 }
 
 export const Pagination = ({
-	currentPage,
-	totalPages,
-	onPageChange
+	onPageChange,
+	pageSize = 10,
+	totalItems = 0,
+	value = 1
 }: PaginationProps) => {
 	const handlePreviousPage = () => {
-		onPageChange(Math.max(currentPage - 1, 1));
+		onPageChange(Math.max(value - 1, 1));
 	};
 
 	const handleNextPage = () => {
-		onPageChange(currentPage + 1);
+		onPageChange(value + 1);
 	};
 
-	return (
-		<div>
-			<IconButton
-				label='Previous'
-				Icon={BackwardIcon}
-				onClick={handlePreviousPage}
-				isDisabled={currentPage === 1}
-			/>
-			<span>Page {currentPage}</span>
-			<IconButton
-				label='Next'
-				Icon={ForwardIcon}
-				onClick={handleNextPage}
-				isDisabled={currentPage >= totalPages}
-			/>
-		</div>
+	return (<WavePagination
+		onSkipBackward={() => onPageChange(1)}
+		onPrevPage={handlePreviousPage}
+		onNextPage={handleNextPage}
+		onSkipForward={() => onPageChange(Math.ceil(totalItems / pageSize))}
+		ariaLabelFirst='First page'
+		ariaLabelPrevious='Previous page'
+		ariaLabelNext='Next page'
+		ariaLabelLast='Last page'
+		ariaLabelSelectPageSizeContainer='Select page size'
+		label='Page navigation'
+		pageSize={pageSize}
+		totalItems={totalItems}
+		value={value} />
 	);
 };

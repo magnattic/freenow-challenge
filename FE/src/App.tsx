@@ -7,16 +7,16 @@ import { Pagination } from './domains/vehicles/Pagination';
 
 function App() {
 	const [page, setPage] = useState(1);
-	const { data: vehicles, totalPages } = useVehicles({ page });
-	console.log('Vehicles:', vehicles);
+	const { data: vehicles, totalItems, pageSize } = useVehicles({ page });
 	return (
 		<>
 			<div>
 				<VehicleMap vehicles={vehicles} onVehicleSelect={() => {}} />
 				<Pagination
-					currentPage={page}
-					totalPages={totalPages}
+					value={page}
 					onPageChange={(page) => setPage(page)}
+					totalItems={totalItems}
+					pageSize={pageSize}
 				/>
 				<VehicleList vehicles={vehicles} />
 			</div>

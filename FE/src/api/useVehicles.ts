@@ -44,7 +44,8 @@ export const useVehicles = ({ page }: { page: number }) => {
 
 	return {
 		data: pageVehicles,
-		totalPages: clusteredVehicles.length,
+		totalItems: allVehicles.length,
+		pageSize,
 		isLoading: freeNowQuery.isLoading || shareNowQuery.isLoading,
 		error: freeNowQuery.error ?? shareNowQuery.error,
 	};
