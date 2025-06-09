@@ -1,11 +1,11 @@
 import './App.css';
 import { VehicleMap } from './domains/vehicles/VehicleMap';
-import { useAllVehicles } from './api/useVehicles';
+import { useVehicles } from './api/useVehicles';
 import { useState } from 'react';
 
 function App() {
 	const [page, setPage] = useState(1);
-	const { data: vehicles, totalPages } = useAllVehicles({ page });
+	const { data: vehicles, totalPages } = useVehicles({ page });
 	console.log('Vehicles:', vehicles);
 	return (
 		<>

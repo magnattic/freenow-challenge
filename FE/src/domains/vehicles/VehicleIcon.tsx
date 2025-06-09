@@ -20,8 +20,8 @@ export const VehicleIcon = ({
 			<title>Vehicle Icon</title>
 			<g filter="url(#filter0_ddd_5390_29707)">
 				<path
-					fill-rule="evenodd"
-					clip-rule="evenodd"
+					fillRule="evenodd"
+					clipRule="evenodd"
 					d="M17.3887 25.8522C23.1188 24.9463 27.5 19.9848 27.5 14C27.5 7.37258 22.1274 2 15.5 2C8.87258 2 3.5 7.37258 3.5 14C3.5 19.9848 7.88123 24.9463 13.6113 25.8522L15.5 29L17.3887 25.8522Z"
 					fill={color}
 				/>
@@ -38,9 +38,9 @@ export const VehicleIcon = ({
 					width="30"
 					height="33"
 					filterUnits="userSpaceOnUse"
-					color-interpolation-filters="sRGB"
+					colorInterpolationFilters="sRGB"
 				>
-					<feFlood flood-opacity="0" result="BackgroundImageFix" />
+					<feFlood floodOpacity="0" result="BackgroundImageFix" />
 					<feColorMatrix
 						in="SourceAlpha"
 						type="matrix"
