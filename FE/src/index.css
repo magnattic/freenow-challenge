@@ -1,3 +1,13 @@
+.custom-div-icon {
+    background: transparent !important;
+    border: none !important;
+}
+
+.custom-div-icon svg {
+    width: 100% !important;
+    height: 100% !important;
+}
+
 /* :root {
 	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;

@@ -14,6 +14,7 @@
 	"dependencies": {
 		"@freenow/wave": "2.38.1",
 		"@tanstack/react-query": "5.80.6",
+		"geolib": "3.3.4",
 		"leaflet": "1.9.4",
 		"react": "19.1.0",
 		"react-dom": "19.1.0",
