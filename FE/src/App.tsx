@@ -1,7 +1,6 @@
 import './App.css';
-import { VehicleList } from './domains/vehicles/VehicleList';
 import { VehicleMap } from './domains/vehicles/VehicleMap';
-import { useAllVehicles } from './hooks/useVehicles';
+import { useAllVehicles } from './api/useVehicles';
 
 function App() {
 	const vehicles = useAllVehicles();
