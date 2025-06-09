@@ -2,6 +2,8 @@ import './App.css';
 import { VehicleMap } from './domains/vehicles/VehicleMap';
 import { useVehicles } from './api/useVehicles';
 import { useState } from 'react';
+import { VehicleList } from './domains/vehicles/VehicleList';
+import { Pagination } from './domains/vehicles/Pagination';
 
 function App() {
 	const [page, setPage] = useState(1);
@@ -11,20 +13,12 @@ function App() {
 		<>
 			<div>
 				<VehicleMap vehicles={vehicles} onVehicleSelect={() => {}} />
-				<button
-					onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-					disabled={page === 1}
-				>
-					Previous
-				</button>
-				<span>Page {page}</span>
-				<button
-					onClick={() => setPage((prev) => prev + 1)}
-					disabled={page >= totalPages}
-				>
-					Next
-				</button>
-				{/* <VehicleList /> */}
+				<Pagination
+					currentPage={page}
+					totalPages={totalPages}
+					onPageChange={(page) => setPage(page)}
+				/>
+				<VehicleList vehicles={vehicles} />
 			</div>
 		</>
 	);

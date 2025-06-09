@@ -1,24 +1,34 @@
-import { Table, TableHeaderCell, TableRow } from '@freenow/wave';
+import { Table, TableCell, TableHeaderCell, TableRow } from '@freenow/wave';
+import type { Vehicle } from './Vehicle';
 
-export const VehicleList = () => {
+export const VehicleList = ({ vehicles }: { vehicles: readonly Vehicle[] }) => {
 	return (
 		<Table rowStyle="zebra">
 			<caption>Vehicle List</caption>
 			<thead>
 				<TableRow>
-					<TableHeaderCell scope="col">Vehicle ID</TableHeaderCell>
-					<TableHeaderCell scope="col">Vehicle Type</TableHeaderCell>
-					<TableHeaderCell scope="col">Status</TableHeaderCell>
-					<TableHeaderCell scope="col">Location</TableHeaderCell>
+					<TableHeaderCell scope="col">Type</TableHeaderCell>
+					<TableHeaderCell scope="col">Licence plate</TableHeaderCell>
+					<TableHeaderCell scope="col">Coordinates</TableHeaderCell>
+					<TableHeaderCell scope="col">Address</TableHeaderCell>
+					<TableHeaderCell scope="col">State</TableHeaderCell>
+					<TableHeaderCell scope="col">Condition</TableHeaderCell>
 				</TableRow>
 			</thead>
-			<tbody>
-				<TableRow>
-					<td>1</td>
-					<td>Car</td>
-					<td>Available</td>
-					<td>Berlin</td>
-				</TableRow>
+			<tbody>{
+				vehicles.map((vehicle) => (
+					<TableRow key={vehicle.id}>
+						<TableCell>{vehicle.type}</TableCell>
+						<TableCell>{vehicle.licensePlate}</TableCell>
+						<TableCell>
+							{vehicle.coordinates.latitude}, {vehicle.coordinates.longitude}
+						</TableCell>
+						<TableCell>{vehicle.address}</TableCell>
+						<TableCell>{vehicle.state}</TableCell>
+						<TableCell>{vehicle.condition}</TableCell>
+					</TableRow>
+				))
+			}
 			</tbody>
 		</Table>
 	);
