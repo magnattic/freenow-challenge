@@ -38,7 +38,7 @@ export const VehicleList = ({ vehicles }: { vehicles: readonly Vehicle[] }) => {
 							{vehicle.coordinates.longitude}
 						</TableCell>
 						<TableCell
-							title={vehicle.address}
+							title={vehicle.address ?? undefined}
 							style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}
 						>
 							{vehicle.address ?? 'N/A'}
