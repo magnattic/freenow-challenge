@@ -1,11 +1,11 @@
 import './App.css';
+import { useVehicles } from '@/api/useVehicles';
+import { Pagination } from '@/domains/vehicles/Pagination';
+import { VehicleList } from '@/domains/vehicles/VehicleList';
+import { VehicleMap } from '@/domains/vehicles/VehicleMap';
 import { MediaQueries } from '@freenow/wave';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useVehicles } from './api/useVehicles';
-import { Pagination } from './domains/vehicles/Pagination';
-import { VehicleList } from './domains/vehicles/VehicleList';
-import { VehicleMap } from './domains/vehicles/VehicleMap';
 
 const Container = styled.div`
 	display: grid;
@@ -21,7 +21,7 @@ const Container = styled.div`
 	}
 `;
 
-function App() {
+export const VehiclePage = () => {
 	const [page, setPage] = useState(1);
 	const { data: vehicles, totalItems, pageSize } = useVehicles({ page });
 	return (
@@ -38,6 +38,4 @@ function App() {
 			</div>
 		</Container>
 	);
-}
-
-export default App;
+};

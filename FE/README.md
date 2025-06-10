@@ -52,3 +52,8 @@ export default tseslint.config({
   },
 })
 ```
+
+## Todo
+- Zod validation for backend data?
+- Unit tests
+- E2E tests

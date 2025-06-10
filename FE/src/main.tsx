@@ -1,7 +1,7 @@
+import { ClassicColors } from '@freenow/wave';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ClassicColors } from '@freenow/wave';
 import './index.css';
 import App from './App.tsx';
 
