@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "FE"
+		},
+		{
+			"path": "../wave"
+		}
+	],
+	"settings": {}
+}
