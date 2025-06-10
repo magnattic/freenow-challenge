@@ -1,4 +1,4 @@
-import { DivIcon, Icon, type LatLngExpression, latLngBounds } from 'leaflet';
+import { DivIcon, type LatLngExpression, latLngBounds } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useMemo } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -9,7 +9,7 @@ import { VehicleIcon } from './VehicleIcon';
 interface VehicleMapProps {
 	readonly vehicles: readonly Vehicle[];
 	readonly selectedVehicleId?: number;
-	readonly onVehicleSelect: (vehicleId: number) => void;
+	readonly onVehicleSelect: ({ vehicleId }: { vehicleId: number }) => void;
 }
 
 const freeNowIcon = new DivIcon({
@@ -23,6 +23,20 @@ const shareNowIcon = new DivIcon({
 	html: renderToStaticMarkup(<VehicleIcon vehicleType={'SHARE NOW'} />),
 	iconSize: [30, 30],
 	iconAnchor: [15, 15],
+	className: 'custom-div-icon',
+});
+
+const freeNowIconSelected = new DivIcon({
+	html: renderToStaticMarkup(<VehicleIcon vehicleType={'FREE NOW'} />),
+	iconSize: [45, 45],
+	iconAnchor: [22.5, 22.5],
+	className: 'custom-div-icon',
+});
+
+const shareNowIconSelected = new DivIcon({
+	html: renderToStaticMarkup(<VehicleIcon vehicleType={'SHARE NOW'} />),
+	iconSize: [45, 45],
+	iconAnchor: [22.5, 22.5],
 	className: 'custom-div-icon',
 });
 
@@ -56,6 +70,16 @@ export const VehicleMap = ({
 				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 			/>
 			{vehicles.map((vehicle) => {
+				const isSelected = selectedVehicleId === vehicle.id;
+				const icon =
+					vehicle.type === 'FREE NOW'
+						? isSelected
+							? freeNowIconSelected
+							: freeNowIcon
+						: isSelected
+							? shareNowIconSelected
+							: shareNowIcon;
+
 				return (
 					<Marker
 						key={vehicle.id}
@@ -64,9 +88,9 @@ export const VehicleMap = ({
 							vehicle.coordinates.longitude,
 						]}
 						eventHandlers={{
-							click: () => onVehicleSelect(vehicle.id),
+							click: () => onVehicleSelect({ vehicleId: vehicle.id }),
 						}}
-						icon={vehicle.type === 'FREE NOW' ? freeNowIcon : shareNowIcon}
+						icon={icon}
 					>
 						<Popup>
 							<div>

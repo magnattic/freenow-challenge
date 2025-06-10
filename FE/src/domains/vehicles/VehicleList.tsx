@@ -25,7 +25,15 @@ const StyledTableCell = styled(TableCell)`
 	text-align: left;
 `;
 
-export const VehicleList = ({ vehicles }: { vehicles: readonly Vehicle[] }) => {
+type VehicleListProps = {
+	vehicles: readonly Vehicle[];
+	onVehicleHighlight: ({ vehicleId }: { vehicleId: number }) => void;
+};
+
+export const VehicleList = ({
+	vehicles,
+	onVehicleHighlight,
+}: VehicleListProps) => {
 	return (
 		<Table rowStyle="zebra" width={'100%'} style={{ tableLayout: 'fixed' }}>
 			<caption>Vehicle List</caption>
@@ -54,7 +62,12 @@ export const VehicleList = ({ vehicles }: { vehicles: readonly Vehicle[] }) => {
 			<tbody>
 				{vehicles.length > 0
 					? vehicles.map((vehicle) => (
-							<TableRow key={vehicle.id}>
+							<TableRow
+								key={vehicle.id}
+								onMouseOver={() => {
+									onVehicleHighlight({ vehicleId: vehicle.id });
+								}}
+							>
 								<StyledTableCell>{vehicle.type}</StyledTableCell>
 								<StyledTableCell>{vehicle.licensePlate}</StyledTableCell>
 								<StyledTableCell>

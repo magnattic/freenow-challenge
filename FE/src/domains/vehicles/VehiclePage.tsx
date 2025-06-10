@@ -1,4 +1,3 @@
-import './App.css';
 import { useVehicles } from '@/api/useVehicles';
 import { Pagination } from '@/domains/vehicles/Pagination';
 import { VehicleList } from '@/domains/vehicles/VehicleList';
@@ -23,12 +22,26 @@ const Container = styled.div`
 
 export const VehiclePage = () => {
 	const [page, setPage] = useState(1);
+	const [highlightedVehicleId, setHighlightedVehicleId] = useState<
+		number | null
+	>(null);
 	const { data: vehicles, totalItems, pageSize } = useVehicles({ page });
 	return (
 		<Container>
-			<VehicleMap vehicles={vehicles} onVehicleSelect={() => {}} />
+			<VehicleMap
+				vehicles={vehicles}
+				onVehicleSelect={({ vehicleId }) => {
+					setHighlightedVehicleId(vehicleId);
+				}}
+				selectedVehicleId={highlightedVehicleId ?? undefined}
+			/>
 			<div>
-				<VehicleList vehicles={vehicles} />
+				<VehicleList
+					vehicles={vehicles}
+					onVehicleHighlight={({ vehicleId }) => {
+						setHighlightedVehicleId(vehicleId);
+					}}
+				/>
 				<Pagination
 					value={page}
 					onPageChange={(page) => setPage(page)}
