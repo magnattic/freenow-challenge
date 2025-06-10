@@ -3,32 +3,50 @@ import type { Vehicle } from './Vehicle';
 
 export const VehicleList = ({ vehicles }: { vehicles: readonly Vehicle[] }) => {
 	return (
-		<Table rowStyle="zebra">
+		<Table rowStyle="zebra" width={'100%'} style={{ tableLayout: 'fixed' }}>
 			<caption>Vehicle List</caption>
 			<thead>
 				<TableRow>
-					<TableHeaderCell scope="col">Type</TableHeaderCell>
-					<TableHeaderCell scope="col">Licence plate</TableHeaderCell>
-					<TableHeaderCell scope="col">Coordinates</TableHeaderCell>
-					<TableHeaderCell scope="col">Address</TableHeaderCell>
-					<TableHeaderCell scope="col">State</TableHeaderCell>
-					<TableHeaderCell scope="col">Condition</TableHeaderCell>
+					<TableHeaderCell scope="col" width={'10%'}>
+						Type
+					</TableHeaderCell>
+					<TableHeaderCell scope="col" width={'15%'}>
+						Licence plate
+					</TableHeaderCell>
+					<TableHeaderCell scope="col" width={'20%'}>
+						Coordinates
+					</TableHeaderCell>
+					<TableHeaderCell scope="col" width={'30%'}>
+						Address
+					</TableHeaderCell>
+					<TableHeaderCell scope="col" width={'12.5%'}>
+						State
+					</TableHeaderCell>
+					<TableHeaderCell scope="col" width={'12.5%'}>
+						Condition
+					</TableHeaderCell>
 				</TableRow>
 			</thead>
-			<tbody>{
-				vehicles.map((vehicle) => (
+			<tbody>
+				{vehicles.map((vehicle) => (
 					<TableRow key={vehicle.id}>
 						<TableCell>{vehicle.type}</TableCell>
 						<TableCell>{vehicle.licensePlate}</TableCell>
 						<TableCell>
-							{vehicle.coordinates.latitude}, {vehicle.coordinates.longitude}
+							{vehicle.coordinates.latitude}
+							<br />
+							{vehicle.coordinates.longitude}
 						</TableCell>
-						<TableCell>{vehicle.address}</TableCell>
+						<TableCell
+							title={vehicle.address}
+							style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}
+						>
+							{vehicle.address ?? 'N/A'}
+						</TableCell>
 						<TableCell>{vehicle.state}</TableCell>
 						<TableCell>{vehicle.condition}</TableCell>
 					</TableRow>
-				))
-			}
+				))}
 			</tbody>
 		</Table>
 	);

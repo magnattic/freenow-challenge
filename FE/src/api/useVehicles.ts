@@ -34,10 +34,13 @@ export const useVehicles = ({ page }: { page: number }) => {
 			return clusterVehicles(allVehicles, pageSize);
 		}
 
-		// If clustering is not enabled, simply paginate as they come in
-		return chunkArray(allVehicles, pageSize);
-	}, [allVehicles]);
+		// If clustering is not enabled, sort by license plate and paginate
+		const sortedVehicles = allVehicles.sort((a, b) => {
+			return a.licensePlate.localeCompare(b.licensePlate);
+		});
 
+		return chunkArray(sortedVehicles, pageSize);
+	}, [allVehicles]);
 
 	// Get vehicles for the requested page (cluster)
 	const pageVehicles = clusteredVehicles[page - 1] ?? [];
