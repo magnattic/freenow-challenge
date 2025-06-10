@@ -37,7 +37,6 @@ export const VehicleList = ({
 }: VehicleListProps) => {
 	return (
 		<Table rowStyle="zebra" width={'100%'} style={{ tableLayout: 'fixed' }}>
-			<caption>Vehicle List</caption>
 			<thead>
 				<TableRow>
 					<TableHeaderCell scope="col" width={'10%'}>
