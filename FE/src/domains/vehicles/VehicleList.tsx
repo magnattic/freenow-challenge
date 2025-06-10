@@ -1,11 +1,18 @@
 import {
-	Headline,
+	Battery25Icon,
+	Battery50Icon,
+	Battery75Icon,
+	BatteryEmptyIcon,
+	BatteryFullIcon,
+	EmojiHappyIcon,
+	EmojiSadIcon,
 	Label,
 	Table,
 	TableCell,
 	TableHeaderCell,
 	TableRow,
 	Text,
+	getSemanticValue,
 } from '@freenow/wave';
 import styled from 'styled-components';
 import type { Vehicle } from './Vehicle';
@@ -60,7 +67,8 @@ export const VehicleList = ({ vehicles }: { vehicles: readonly Vehicle[] }) => {
 							<StateLabel state={vehicle.state} />
 						</StyledTableCell>
 						<StyledTableCell>
-							<ConditionIcon condition={vehicle.condition} />
+							<ConditionIcon condition={vehicle.condition} />{' '}
+							<FuelIcon fuel={vehicle.fuel} />
 						</StyledTableCell>
 					</TableRow>
 				))}
@@ -69,17 +77,58 @@ export const VehicleList = ({ vehicles }: { vehicles: readonly Vehicle[] }) => {
 	);
 };
 
+const ActiveLabel = styled(Label).attrs({ variant: 'warning' })`
+	border-radius: 3px;
+	`;
+const InactiveLabel = styled(Label).attrs({ variant: 'default' })`
+	border-radius: 3px;
+`;
 const StateLabel = ({ state }: Pick<Vehicle, 'state'>) => {
-	return <Label>{state}</Label>;
+	if (state === 'ACTIVE') {
+		return <ActiveLabel>{state}</ActiveLabel>;
+	}
+	return <InactiveLabel>{state}</InactiveLabel>;
 };
 
 const ConditionIcon = ({ condition }: Pick<Vehicle, 'condition'>) => {
 	return (
 		<Text>
-			{condition === 'Good' && <span>👍</span>}
-			{condition === 'Fair' && <span>👌</span>}
-			{condition === 'Poor' && <span>👎</span>}
-			{condition === 'Unknown' && <span>❓</span>}
+			{condition === 'GOOD' && <EmojiHappyIcon />}
+			{condition === 'BAD' && (
+				<EmojiSadIcon color={getSemanticValue('foreground-danger-default')} />
+			)}
 		</Text>
 	);
+};
+
+/** The svg icons have preset colors for the bars, but the design wants them black. */
+const OverrideBatteryColor = styled.div`
+    svg path {
+        fill: black !important;
+    }
+`;
+const FuelIcon = ({ fuel }: Pick<Vehicle, 'fuel'>) => {
+	if (fuel === undefined) {
+		return null;
+	}
+	return <OverrideBatteryColor>{getFuelIcon(fuel)}</OverrideBatteryColor>;
+};
+
+const getFuelIcon = (fuel?: number) => {
+	if (fuel === undefined) {
+		return null;
+	}
+	if (fuel >= 100) {
+		return <BatteryFullIcon />;
+	}
+	if (fuel >= 75) {
+		return <Battery75Icon />;
+	}
+	if (fuel >= 50) {
+		return <Battery50Icon />;
+	}
+	if (fuel >= 25) {
+		return <Battery25Icon />;
+	}
+	return <BatteryEmptyIcon />;
 };
