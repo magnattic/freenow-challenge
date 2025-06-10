@@ -102,7 +102,7 @@ const ConditionIcon = ({ condition }: Pick<Vehicle, 'condition'>) => {
 };
 
 /** The svg icons have preset colors for the bars, but the design wants them black. */
-const OverrideBatteryColor = styled.div`
+const OverrideBatteryColor = styled.span`
     svg path {
         fill: black !important;
     }
