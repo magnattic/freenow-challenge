@@ -11,6 +11,7 @@ import {
 	TableCell,
 	TableHeaderCell,
 	TableRow,
+	TableRowSkeleton,
 	Text,
 	getSemanticValue,
 } from '@freenow/wave';
@@ -51,27 +52,33 @@ export const VehicleList = ({ vehicles }: { vehicles: readonly Vehicle[] }) => {
 				</TableRow>
 			</thead>
 			<tbody>
-				{vehicles.map((vehicle) => (
-					<TableRow key={vehicle.id}>
-						<StyledTableCell>{vehicle.type}</StyledTableCell>
-						<StyledTableCell>{vehicle.licensePlate}</StyledTableCell>
-						<StyledTableCell>
-							{vehicle.coordinates.latitude}
-							<br />
-							{vehicle.coordinates.longitude}
-						</StyledTableCell>
-						<StyledTableCell title={vehicle.address ?? undefined}>
-							{vehicle.address ?? '-'}
-						</StyledTableCell>
-						<StyledTableCell>
-							<StateLabel state={vehicle.state} />
-						</StyledTableCell>
-						<StyledTableCell>
-							<ConditionIcon condition={vehicle.condition} />{' '}
-							<FuelIcon fuel={vehicle.fuel} />
-						</StyledTableCell>
-					</TableRow>
-				))}
+				{vehicles.length > 0
+					? vehicles.map((vehicle) => (
+							<TableRow key={vehicle.id}>
+								<StyledTableCell>{vehicle.type}</StyledTableCell>
+								<StyledTableCell>{vehicle.licensePlate}</StyledTableCell>
+								<StyledTableCell>
+									{vehicle.coordinates.latitude}
+									<br />
+									{vehicle.coordinates.longitude}
+								</StyledTableCell>
+								<StyledTableCell title={vehicle.address ?? undefined}>
+									{vehicle.address ?? '-'}
+								</StyledTableCell>
+								<StyledTableCell>
+									<StateLabel state={vehicle.state} />
+								</StyledTableCell>
+								<StyledTableCell>
+									<ConditionIcon condition={vehicle.condition} />{' '}
+									<FuelIcon fuel={vehicle.fuel} />
+								</StyledTableCell>
+							</TableRow>
+						))
+					: // Show 10 skeleton rows if no vehicles are available
+						Array.from({ length: 10 }).map((_, index) => (
+							// biome-ignore lint/suspicious/noArrayIndexKey: Using index as key for skeleton rows is acceptable here
+							<TableRowSkeleton key={index} columns={5} />
+						))}
 			</tbody>
 		</Table>
 	);
