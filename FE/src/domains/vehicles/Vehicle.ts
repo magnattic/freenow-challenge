@@ -7,7 +7,7 @@ export interface Vehicle {
 	readonly licensePlate: string;
 	readonly address: string | null;
 	readonly type: 'FREE NOW' | 'SHARE NOW';
-	readonly state: 'Active' | 'Inactive';
+	readonly state: 'ACTIVE' | 'INACTIVE';
 	readonly fuel?: number;
-	readonly condition?: string;
+	readonly condition: 'GOOD' | 'BAD';
 }

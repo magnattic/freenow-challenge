@@ -1,5 +1,21 @@
-import { Table, TableCell, TableHeaderCell, TableRow } from '@freenow/wave';
+import {
+	Headline,
+	Label,
+	Table,
+	TableCell,
+	TableHeaderCell,
+	TableRow,
+	Text,
+} from '@freenow/wave';
+import styled from 'styled-components';
 import type { Vehicle } from './Vehicle';
+
+const StyledTableCell = styled(TableCell)`
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-align: left;
+`;
 
 export const VehicleList = ({ vehicles }: { vehicles: readonly Vehicle[] }) => {
 	return (
@@ -30,24 +46,40 @@ export const VehicleList = ({ vehicles }: { vehicles: readonly Vehicle[] }) => {
 			<tbody>
 				{vehicles.map((vehicle) => (
 					<TableRow key={vehicle.id}>
-						<TableCell>{vehicle.type}</TableCell>
-						<TableCell>{vehicle.licensePlate}</TableCell>
-						<TableCell>
+						<StyledTableCell>{vehicle.type}</StyledTableCell>
+						<StyledTableCell>{vehicle.licensePlate}</StyledTableCell>
+						<StyledTableCell>
 							{vehicle.coordinates.latitude}
 							<br />
 							{vehicle.coordinates.longitude}
-						</TableCell>
-						<TableCell
-							title={vehicle.address ?? undefined}
-							style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}
-						>
-							{vehicle.address ?? 'N/A'}
-						</TableCell>
-						<TableCell>{vehicle.state}</TableCell>
-						<TableCell>{vehicle.condition}</TableCell>
+						</StyledTableCell>
+						<StyledTableCell title={vehicle.address ?? undefined}>
+							{vehicle.address ?? '-'}
+						</StyledTableCell>
+						<StyledTableCell>
+							<StateLabel state={vehicle.state} />
+						</StyledTableCell>
+						<StyledTableCell>
+							<ConditionIcon condition={vehicle.condition} />
+						</StyledTableCell>
 					</TableRow>
 				))}
 			</tbody>
 		</Table>
+	);
+};
+
+const StateLabel = ({ state }: Pick<Vehicle, 'state'>) => {
+	return <Label>{state}</Label>;
+};
+
+const ConditionIcon = ({ condition }: Pick<Vehicle, 'condition'>) => {
+	return (
+		<Text>
+			{condition === 'Good' && <span>👍</span>}
+			{condition === 'Fair' && <span>👌</span>}
+			{condition === 'Poor' && <span>👎</span>}
+			{condition === 'Unknown' && <span>❓</span>}
+		</Text>
 	);
 };
