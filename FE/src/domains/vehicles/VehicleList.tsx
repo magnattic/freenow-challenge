@@ -32,71 +32,77 @@ type VehicleListProps = {
 	onVehicleSelect: ({ vehicleId }: { vehicleId: number }) => void;
 };
 
+const TableContainer = styled.div`
+	min-height: 620px; ${'' /* Ensures the table doesn't jump around when fewer rows are available on the last page. */}
+`;
+
 export const VehicleList = ({
 	vehicles,
 	onVehicleSelect,
 	selectedVehicleId,
 }: VehicleListProps) => {
 	return (
-		<Table rowStyle="zebra" width={'100%'} style={{ tableLayout: 'fixed' }}>
-			<thead>
-				<TableRow>
-					<TableHeaderCell scope="col" width={'10%'}>
-						Type
-					</TableHeaderCell>
-					<TableHeaderCell scope="col" width={'15%'}>
-						Licence plate
-					</TableHeaderCell>
-					<TableHeaderCell scope="col" width={'20%'}>
-						Coordinates
-					</TableHeaderCell>
-					<TableHeaderCell scope="col" width={'30%'}>
-						Address
-					</TableHeaderCell>
-					<TableHeaderCell scope="col" width={'12.5%'}>
-						State
-					</TableHeaderCell>
-					<TableHeaderCell scope="col" width={'12.5%'}>
-						Condition
-					</TableHeaderCell>
-				</TableRow>
-			</thead>
-			<tbody>
-				{vehicles.length > 0
-					? vehicles.map((vehicle) => (
-							<TableRow
-								key={vehicle.id}
-								active={selectedVehicleId === vehicle.id}
-								onClick={() => {
-									onVehicleSelect({ vehicleId: vehicle.id });
-								}}
-							>
-								<StyledTableCell>{vehicle.type}</StyledTableCell>
-								<StyledTableCell>{vehicle.licensePlate}</StyledTableCell>
-								<StyledTableCell>
-									{vehicle.coordinates.latitude}
-									<br />
-									{vehicle.coordinates.longitude}
-								</StyledTableCell>
-								<StyledTableCell title={vehicle.address ?? undefined}>
-									{vehicle.address ?? '-'}
-								</StyledTableCell>
-								<StyledTableCell>
-									<StateLabel state={vehicle.state} />
-								</StyledTableCell>
-								<StyledTableCell>
-									<ConditionIcon condition={vehicle.condition} />{' '}
-									<FuelIcon fuel={vehicle.fuel} />
-								</StyledTableCell>
-							</TableRow>
-						))
-					: // Show 10 skeleton rows if no vehicles are available
-						Array.from({ length: 10 }).map((_, index) => (
-							// biome-ignore lint/suspicious/noArrayIndexKey: Using index as key for skeleton rows is acceptable here
-							<TableRowSkeleton key={index} columns={5} />
-						))}
-			</tbody>
-		</Table>
+		<TableContainer>
+			<Table rowStyle="zebra" width={'100%'} style={{ tableLayout: 'fixed' }}>
+				<thead>
+					<TableRow>
+						<TableHeaderCell scope="col" width={'10%'}>
+							Type
+						</TableHeaderCell>
+						<TableHeaderCell scope="col" width={'15%'}>
+							Licence plate
+						</TableHeaderCell>
+						<TableHeaderCell scope="col" width={'20%'}>
+							Coordinates
+						</TableHeaderCell>
+						<TableHeaderCell scope="col" width={'30%'}>
+							Address
+						</TableHeaderCell>
+						<TableHeaderCell scope="col" width={'12.5%'}>
+							State
+						</TableHeaderCell>
+						<TableHeaderCell scope="col" width={'12.5%'}>
+							Condition
+						</TableHeaderCell>
+					</TableRow>
+				</thead>
+				<tbody>
+					{vehicles.length > 0
+						? vehicles.map((vehicle) => (
+								<TableRow
+									key={vehicle.id}
+									active={selectedVehicleId === vehicle.id}
+									onClick={() => {
+										onVehicleSelect({ vehicleId: vehicle.id });
+									}}
+								>
+									<StyledTableCell>{vehicle.type}</StyledTableCell>
+									<StyledTableCell>{vehicle.licensePlate}</StyledTableCell>
+									<StyledTableCell>
+										{vehicle.coordinates.latitude}
+										<br />
+										{vehicle.coordinates.longitude}
+									</StyledTableCell>
+									<StyledTableCell title={vehicle.address ?? undefined}>
+										{vehicle.address ?? '-'}
+									</StyledTableCell>
+									<StyledTableCell>
+										<StateLabel state={vehicle.state} />
+									</StyledTableCell>
+									<StyledTableCell>
+										<ConditionIcon condition={vehicle.condition} />{' '}
+										<FuelIcon fuel={vehicle.fuel} />
+									</StyledTableCell>
+								</TableRow>
+							))
+						: // Show 10 skeleton rows if no vehicles are available
+							Array.from({ length: 10 }).map((_, index) => (
+								// biome-ignore lint/suspicious/noArrayIndexKey: Using index as key for skeleton rows is acceptable here
+								<TableRowSkeleton key={index} columns={5} />
+							))}
+				</tbody>
+			</Table>
+		</TableContainer>
 	);
 };
 
