@@ -28,12 +28,14 @@ const StyledTableCell = styled(TableCell)`
 
 type VehicleListProps = {
 	vehicles: readonly Vehicle[];
+	selectedVehicleId?: number;
 	onVehicleSelect: ({ vehicleId }: { vehicleId: number }) => void;
 };
 
 export const VehicleList = ({
 	vehicles,
 	onVehicleSelect,
+	selectedVehicleId,
 }: VehicleListProps) => {
 	return (
 		<Table rowStyle="zebra" width={'100%'} style={{ tableLayout: 'fixed' }}>
@@ -64,6 +66,7 @@ export const VehicleList = ({
 					? vehicles.map((vehicle) => (
 							<TableRow
 								key={vehicle.id}
+								active={selectedVehicleId === vehicle.id}
 								onClick={() => {
 									onVehicleSelect({ vehicleId: vehicle.id });
 								}}
@@ -112,7 +115,7 @@ const StateLabel = ({ state }: Pick<Vehicle, 'state'>) => {
 
 const ConditionIcon = ({ condition }: Pick<Vehicle, 'condition'>) => {
 	return (
-		<Text>
+		<Text title={`Condition: ${condition === 'GOOD' ? 'Good' : 'Bad'}`}>
 			{condition === 'GOOD' && <EmojiHappyIcon />}
 			{condition === 'BAD' && (
 				<EmojiSadIcon color={getSemanticValue('foreground-danger-default')} />
@@ -131,7 +134,11 @@ const FuelIcon = ({ fuel }: Pick<Vehicle, 'fuel'>) => {
 	if (fuel === undefined) {
 		return null;
 	}
-	return <OverrideBatteryColor>{getFuelIcon(fuel)}</OverrideBatteryColor>;
+	return (
+		<OverrideBatteryColor title={`Fuel: ${fuel}%`}>
+			{getFuelIcon(fuel)}
+		</OverrideBatteryColor>
+	);
 };
 
 const getFuelIcon = (fuel?: number) => {

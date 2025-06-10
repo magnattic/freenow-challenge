@@ -22,9 +22,9 @@ const Container = styled.div`
 
 export const VehiclePage = () => {
 	const [page, setPage] = useState(1);
-	const [highlightedVehicleId, setHighlightedVehicleId] = useState<
-		number | null
-	>(null);
+	const [selectedVehicleId, setHighlightedVehicleId] = useState<number | null>(
+		null,
+	);
 	const { data: vehicles, totalItems, pageSize } = useVehicles({ page });
 	return (
 		<Container>
@@ -33,11 +33,12 @@ export const VehiclePage = () => {
 				onVehicleSelect={({ vehicleId }) => {
 					setHighlightedVehicleId(vehicleId);
 				}}
-				selectedVehicleId={highlightedVehicleId ?? undefined}
+				selectedVehicleId={selectedVehicleId ?? undefined}
 			/>
 			<div>
 				<VehicleList
 					vehicles={vehicles}
+					selectedVehicleId={selectedVehicleId ?? undefined}
 					onVehicleSelect={({ vehicleId }) => {
 						setHighlightedVehicleId(vehicleId);
 					}}
