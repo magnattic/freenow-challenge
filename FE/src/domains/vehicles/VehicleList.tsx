@@ -19,6 +19,7 @@ import styled from 'styled-components';
 import type { Vehicle } from './Vehicle';
 
 const StyledTableCell = styled(TableCell)`
+	cursor: pointer;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -27,12 +28,12 @@ const StyledTableCell = styled(TableCell)`
 
 type VehicleListProps = {
 	vehicles: readonly Vehicle[];
-	onVehicleHighlight: ({ vehicleId }: { vehicleId: number }) => void;
+	onVehicleSelect: ({ vehicleId }: { vehicleId: number }) => void;
 };
 
 export const VehicleList = ({
 	vehicles,
-	onVehicleHighlight,
+	onVehicleSelect,
 }: VehicleListProps) => {
 	return (
 		<Table rowStyle="zebra" width={'100%'} style={{ tableLayout: 'fixed' }}>
@@ -64,8 +65,8 @@ export const VehicleList = ({
 					? vehicles.map((vehicle) => (
 							<TableRow
 								key={vehicle.id}
-								onMouseOver={() => {
-									onVehicleHighlight({ vehicleId: vehicle.id });
+								onClick={() => {
+									onVehicleSelect({ vehicleId: vehicle.id });
 								}}
 							>
 								<StyledTableCell>{vehicle.type}</StyledTableCell>

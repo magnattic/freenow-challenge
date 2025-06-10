@@ -38,7 +38,7 @@ export const VehiclePage = () => {
 			<div>
 				<VehicleList
 					vehicles={vehicles}
-					onVehicleHighlight={({ vehicleId }) => {
+					onVehicleSelect={({ vehicleId }) => {
 						setHighlightedVehicleId(vehicleId);
 					}}
 				/>
