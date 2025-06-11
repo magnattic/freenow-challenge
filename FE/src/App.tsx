@@ -1,8 +1,13 @@
 import './App.css';
+import { DefaultLayout } from './domains/layout/DefaultLayout';
 import { VehiclePage } from './domains/vehicles/VehiclePage';
 
 function App() {
-	return <VehiclePage />;
+	return (
+		<DefaultLayout>
+			<VehiclePage />
+		</DefaultLayout>
+	);
 }
 
 export default App;

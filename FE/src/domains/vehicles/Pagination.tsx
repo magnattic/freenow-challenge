@@ -1,11 +1,22 @@
 import {
 	Pagination as WavePagination,
 	type PaginationProps as WavePaginationProps,
+	getSemanticValue,
 } from '@freenow/wave';
+import styled from 'styled-components';
 
 type PaginationProps = WavePaginationProps & {
 	onPageChange: (page: number) => void;
 };
+
+const PageText = styled.span`
+	color: ${getSemanticValue('foreground-neutral-emphasized')};
+
+	strong {
+		color: inherit;
+		font-weight: 600;
+	};
+`;
 
 export const Pagination = ({
 	onPageChange,
@@ -32,7 +43,14 @@ export const Pagination = ({
 			ariaLabelNext="Next page"
 			ariaLabelLast="Last page"
 			ariaLabelSelectPageSizeContainer="Select page size"
-			label={`Page ${value} of ${Math.ceil(totalItems / pageSize)}`}
+			label={
+				<PageText>
+					Page{' '}
+					<strong>
+						{value} of {Math.ceil(totalItems / pageSize)}
+					</strong>
+				</PageText>
+			}
 			pageSize={pageSize}
 			totalItems={totalItems}
 			value={value}

@@ -3,6 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import { useEffect, useMemo } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
+import styled from 'styled-components';
 import type { Vehicle } from './Vehicle';
 import { VehicleIcon } from './VehicleIcon';
 
@@ -40,6 +41,11 @@ const shareNowIconSelected = new DivIcon({
 	className: 'custom-div-icon',
 });
 
+const StyledMap = styled(MapContainer)`
+	width: 100%;
+	height: 257px;
+`;
+
 export const VehicleMap = ({
 	vehicles,
 	selectedVehicleId,
@@ -60,11 +66,7 @@ export const VehicleMap = ({
 	);
 
 	return (
-		<MapContainer
-			center={defaultCenter}
-			zoom={13}
-			style={{ height: '400px', width: '100%' }}
-		>
+		<StyledMap center={defaultCenter} zoom={13}>
 			<TileLayer
 				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -105,7 +107,7 @@ export const VehicleMap = ({
 				);
 			})}
 			<FitBounds positions={positions} />
-		</MapContainer>
+		</StyledMap>
 	);
 };
 

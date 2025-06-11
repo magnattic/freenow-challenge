@@ -8,17 +8,21 @@ import styled from 'styled-components';
 
 const Container = styled.div`
 	display: grid;
-	${MediaQueries.small} {
-		grid-template-columns: 1fr;
-		grid-template-rows: auto 1fr auto;
-		gap: 16px;
-	}
-	${MediaQueries.medium} {
+	grid-template-columns: 1fr;
+	grid-template-rows: auto 1fr auto;
+	gap: 16px;
+
+	${MediaQueries.xlarge} {
 		grid-template-columns: 1fr 3fr;
 		grid-template-rows: auto 1fr auto;
 		gap: 16px;
 	}
 `;
+
+const ListContainer = styled.div`
+	display: grid;
+	gap: 24px;
+}`;
 
 export const VehiclePage = () => {
 	const [page, setPage] = useState(1);
@@ -35,7 +39,7 @@ export const VehiclePage = () => {
 				}}
 				selectedVehicleId={selectedVehicleId ?? undefined}
 			/>
-			<div>
+			<ListContainer>
 				<VehicleList
 					vehicles={vehicles}
 					selectedVehicleId={selectedVehicleId ?? undefined}
@@ -49,7 +53,7 @@ export const VehiclePage = () => {
 					totalItems={totalItems}
 					pageSize={pageSize}
 				/>
-			</div>
+			</ListContainer>
 		</Container>
 	);
 };

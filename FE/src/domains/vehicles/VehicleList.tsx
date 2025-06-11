@@ -90,8 +90,8 @@ export const VehicleList = ({
 										<StateLabel state={vehicle.state} />
 									</StyledTableCell>
 									<StyledTableCell>
-										<ConditionIcon condition={vehicle.condition} />{' '}
 										<FuelIcon fuel={vehicle.fuel} />
+										<ConditionIcon condition={vehicle.condition} />{' '}
 									</StyledTableCell>
 								</TableRow>
 							))
