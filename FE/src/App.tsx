@@ -1,4 +1,3 @@
-import './App.css';
 import { DefaultLayout } from './domains/layout/DefaultLayout';
 import { VehiclePage } from './domains/vehicles/VehiclePage';
 

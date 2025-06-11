@@ -1,5 +1,6 @@
 import { DivIcon, type LatLngExpression, latLngBounds } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { MediaQueries } from '@freenow/wave';
 import { useEffect, useMemo } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
@@ -44,6 +45,15 @@ const shareNowIconSelected = new DivIcon({
 const StyledMap = styled(MapContainer)`
 	width: 100%;
 	height: 257px;
+
+	${MediaQueries.xlarge} {
+		height: 392px;
+		width: 320px;
+	}
+	@media (min-width: 1572px) {
+		height: 392px;
+		width: 569px;
+	}
 `;
 
 export const VehicleMap = ({
