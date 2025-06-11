@@ -52,8 +52,3 @@ export default tseslint.config({
   },
 })
 ```
-
-## Todo
-- Unit tests
-- E2E tests
-- proper Map size
