@@ -1,9 +1,9 @@
+import { MediaQueries } from '@freenow/wave';
 import { DivIcon, type LatLngExpression, latLngBounds } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { MediaQueries } from '@freenow/wave';
 import { useEffect, useMemo } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
+import { MapContainer, Marker, TileLayer, useMap } from 'react-leaflet';
 import styled from 'styled-components';
 import type { Vehicle } from './Vehicle';
 import { VehicleIcon } from './VehicleIcon';
@@ -103,17 +103,8 @@ export const VehicleMap = ({
 							click: () => onVehicleSelect({ vehicleId: vehicle.id }),
 						}}
 						icon={icon}
-					>
-						<Popup>
-							<div>
-								<strong>{vehicle.licensePlate}</strong>
-								<br />
-								{vehicle.type}
-								<br />
-								{vehicle.address ?? 'No address available'}
-							</div>
-						</Popup>
-					</Marker>
+						aria-label={`Vehicle ${vehicle.licensePlate} (${vehicle.type}) at ${vehicle.coordinates.latitude}, ${vehicle.coordinates.longitude}`}
+					/>
 				);
 			})}
 			<FitBounds positions={positions} />
