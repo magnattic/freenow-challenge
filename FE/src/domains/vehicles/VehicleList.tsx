@@ -46,22 +46,22 @@ export const VehicleList = ({
 			<Table rowStyle="zebra" width={'100%'} style={{ tableLayout: 'fixed' }}>
 				<thead>
 					<TableRow>
-						<TableHeaderCell scope="col" width={'10%'}>
+						<TableHeaderCell scope="col" width={'18%'}>
 							Type
 						</TableHeaderCell>
-						<TableHeaderCell scope="col" width={'15%'}>
+						<TableHeaderCell scope="col" width={'18%'}>
 							Licence plate
 						</TableHeaderCell>
-						<TableHeaderCell scope="col" width={'20%'}>
+						<TableHeaderCell scope="col" width={'18%'}>
 							Coordinates
 						</TableHeaderCell>
-						<TableHeaderCell scope="col" width={'30%'}>
+						<TableHeaderCell scope="col" width={'22%'}>
 							Address
 						</TableHeaderCell>
-						<TableHeaderCell scope="col" width={'12.5%'}>
+						<TableHeaderCell scope="col" width={'14%'}>
 							State
 						</TableHeaderCell>
-						<TableHeaderCell scope="col" width={'12.5%'}>
+						<TableHeaderCell scope="col" width={'10%'}>
 							Condition
 						</TableHeaderCell>
 					</TableRow>
